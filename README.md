@@ -28,9 +28,9 @@ Library code:
 ### Build instructions
 
     $ make
-    c++  -I. dynlib.cpp -o dynlib
+    c++  -I. dylib.cpp -o dylib
     c++  -fPIC -shared -nostartfiles -o foolib.dylib foolib.cpp
-    $ ./dynlib
+    $ ./dylib
     Load library foolib.dylib
     Load symbol FooLibrary__bar
     Calling from library foo
