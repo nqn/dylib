@@ -1,7 +1,11 @@
-all: dynlib foolib
+all: dylib foolib
 
-dynlib: dynlib.cpp dynlib.h
-	$(CXX) $(CXXFLAGS) -I. dynlib.cpp -o dynlib
+dylib: dylib.cpp dylib.h
+	$(CXX) $(CXXFLAGS) -I. dylib.cpp -o dylib
 
 foolib: foolib.cpp
 	$(CXX) $(CXXFLAGS) -fPIC -shared -nostartfiles -o foolib.dylib foolib.cpp
+
+.PHONY: clean
+clean:
+	-rm -rf dylib foolib.dylib

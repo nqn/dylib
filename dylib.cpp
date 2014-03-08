@@ -4,7 +4,7 @@
 
 #include <string>
 
-#include <dynlib.h>
+#include <dylib.h>
 
 using namespace std;
 
