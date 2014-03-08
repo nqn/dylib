@@ -9,15 +9,15 @@
 using namespace std;
 
 class FooLibrary : public Library {
-public:
-	FooLibrary(std::string path) : Library(path) {}
+  public:
+    FooLibrary(std::string path) : Library(path) {}
 
-	Import(double, bar, int /* x */)
-	Import(long, baz, int /* x */, int /* y */)
+    Import(double, bar, int /* x */)
+    Import(long, baz, int /* x */, int /* y */)
 };
 
 int main(int argc, char** argv) {
   FooLibrary foo("foolib.dylib");
   double y = foo.bar(100);
-	return EXIT_FAILURE;
+  return EXIT_FAILURE;
 }
