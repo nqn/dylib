@@ -1,7 +1,10 @@
 #ifndef __DYNLIB_H
 #define __DYNLIB_H
 
+#include <assert.h>
 #include <string>
+#include <iostream>
+#include <map>
 
 #define EXPAND_PARAM0()
 #define EXPAND_PARAM1(type0) type0 arg0
@@ -18,27 +21,40 @@
 public:\
 typedef ret (*name ## _func_ptr)(__VA_ARGS__);\
 ret name(EXPAND_PARAM(__VA_ARGS__)) {\
-return name ## _func(EXPAND_CALL(__VA_ARGS__));\
+std::map<std::string, void*>::iterator it = loadedSymbols.find(#name);\
+name ## _func_ptr func = NULL;\
+if (it == loadedSymbols.end()) {\
+	func = (name ## _func_ptr)load(#name);\
+	loadedSymbols.insert(std::pair<std::string, void*>(#name, (void*)func));\
+} else {\
+	func = (name ## _func_ptr)it->second;\
 }\
-private:\
-name ## _func_ptr name ## _func;
+assert(func != NULL);\
+return func(EXPAND_CALL(__VA_ARGS__));\
+}
 
 
 class Library {
 public:
 	Library(std::string path) {
+		std::cout << "Load library " << path << std::endl;
 	}
+
+protected:
+	void* load(std::string symbol) {
+		std::cout << "Load symbol " << symbol << std::endl;
+		return NULL;
+	}
+
+	std::map<std::string, void*> loadedSymbols;
 };
 
 class FooLibrary : public Library {
 public:
-	FooLibrary(std::string& path) : Library(path) {}
+	FooLibrary(std::string path) : Library(path) {}
 
 	Import(double, bar, int /* x */)
 	Import(long, baz, int /* x */, int /* y */)
 };
-
-// FooLibrary foo("foo.so");
-// int y = foo.bar(x);
 
 #endif
