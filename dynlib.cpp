@@ -8,8 +8,16 @@
 
 using namespace std;
 
+class FooLibrary : public Library {
+public:
+	FooLibrary(std::string path) : Library(path) {}
+
+	Import(double, bar, int /* x */)
+	Import(long, baz, int /* x */, int /* y */)
+};
+
 int main(int argc, char** argv) {
-  FooLibrary foo("foo.so");
+  FooLibrary foo("foolib.dylib");
   double y = foo.bar(100);
 	return EXIT_FAILURE;
 }
