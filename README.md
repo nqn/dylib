@@ -8,8 +8,8 @@ Host code:
     class FooLibrary : public Library {
       public:
         FooLibrary(std::string path) : Library(path) {}
-        Import(double, bar, int /* x */)
-        Import(long, baz, int /* x */, int /* y */)
+        Import(double /* return type */, bar, int /* x */)
+        // Add as many Import's as you want.
     };
     ...
     FooLibrary foo("foolib.dylib");
