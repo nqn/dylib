@@ -19,5 +19,5 @@ class FooLibrary : public Library {
 int main(int argc, char** argv) {
   FooLibrary foo("foolib.dylib");
   double y = foo.bar(100);
-  return EXIT_FAILURE;
+  return EXIT_SUCCESS;
 }
